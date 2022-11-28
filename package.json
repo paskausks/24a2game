@@ -1,0 +1,13 @@
+{
+  "name": "24a2game",
+  "version": "0.0.1",
+  "description": "A game built using 24a2",
+  "scripts": {
+    "build": "esbuild src/main.js --bundle --outfile=public/main.js",
+    "watch": "esbuild src/main.js --bundle --outfile=public/main.js --watch"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "esbuild": "^0.15.16"
+  }
+}
