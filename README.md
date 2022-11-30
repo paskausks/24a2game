@@ -1,4 +1,6 @@
-# 24a2 game
+# Nest Evac
+
+A game built with [24a2](https://github.com/jamesroutley/24a2) about evacuating (or sacrificing) people stuck in a cage with a hungry monster.
 
 ## Requirements
 
