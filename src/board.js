@@ -55,8 +55,8 @@ export function getBoard() {
   );
 
   const board = Array(BOARD_DIMEN).fill(null).map(
-    (_, y) => Array(BOARD_DIMEN).fill(null).map(
-      (__, x) => getPiece(count, unitsBySpawnCost , Math.random() + BOARD_PROBABILITY_SHIFT, x, y)
+    (_, x) => Array(BOARD_DIMEN).fill(null).map(
+      (__, y) => getPiece(count, unitsBySpawnCost , Math.random() + BOARD_PROBABILITY_SHIFT, x, y)
     )
   );
 

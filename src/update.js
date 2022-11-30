@@ -2,7 +2,6 @@ import {
   BOARD_DEFAULT_CELL_COLOR,
   CELLS,
   MONSTER_COLOR,
-  MONSTER_SPEED_THROTTLE,
   KEY_WALL
 } from './constants';
 import { getState, setState } from './state';
@@ -12,8 +11,8 @@ function renderCaptives(game) {
   const state = getState(game);
 
   // draw captives
-  (state.board || []).forEach((row, y) => {
-    row.forEach((cellKey, x) => {
+  (state.board || []).forEach((col, x) => {
+    col.forEach((cellKey, y) => {
       if (!cellKey) {
         return;
       }
@@ -31,7 +30,7 @@ function renderMonster(game) {
 
   const newCell = state.board[pos[0]][pos[1]];
 
-  if (newCell === KEY_WALL) {
+  if (newCell !== null) {
     pos = monster.pos;
     vector = getRandomVector();
   }
