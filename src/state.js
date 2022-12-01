@@ -11,6 +11,7 @@ export function resetState(game) {
     stopped: false,
     score: 0,
     losses: 0,
+    evacs: 0,
     step: 0,
     created: new Date().getTime(),
     lastEvac: 0,

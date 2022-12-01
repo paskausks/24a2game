@@ -1,7 +1,8 @@
-import { BOARD_DEFAULT_CELL_COLOR, CELLS, LOSSES_MAX, PENALTY_FEED, PENALTY_SACRIFICE } from './constants';
+import { BOARD_DEFAULT_CELL_COLOR, CELLS, EVACS_MIN, LOSSES_MAX, PENALTY_FEED, PENALTY_SACRIFICE } from './constants';
 import { getState, setState, resetState } from './state';
 import { onDotClicked } from './on-dot-clicked';
 import { PIECE_ACTION_EVAC, PIECE_ACTION_MONSTER, PIECE_ACTION_SACRIFICE } from './piece-action';
+import { setStartingUIElements } from './hud';
 
 // top left is 0,0.
 const VECTORS = [
@@ -45,6 +46,10 @@ export function lossesRemaining(losses) {
   return Math.max(LOSSES_MAX - losses, 0);
 }
 
+export function evacsRemaining(evacs) {
+  return Math.max(EVACS_MIN - evacs, 0);
+}
+
 export function handlePieceAction(game, x, y, action) {
   const state = getState(game);
   const oldBoard = state.board;
@@ -57,11 +62,12 @@ export function handlePieceAction(game, x, y, action) {
 
   switch(action) {
     case PIECE_ACTION_EVAC: {
-      extra.lastEvac = new Date().getTime();
       score = score + unit.value;
 
-
       const monsterPos = state.monster.pos;
+
+      extra.lastEvac = new Date().getTime();
+      extra.evacs = state.evacs + 1;
       extra.monster = {
         ...state.monster,
         vector: [
@@ -121,5 +127,6 @@ export function stopGame(game) {
 }
 
 export function restartGame(game) {
+  setStartingUIElements();
   resetState(game);
 }

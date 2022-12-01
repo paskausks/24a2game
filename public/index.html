@@ -5,6 +5,11 @@
         <meta charset="utf-8">
         <meta name="description" content="24a2 game about evacuating people">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+        <link rel="manifest" href="favicon/site.webmanifest">
         <link rel="stylesheet" href="styles.css">
     </head>
 
@@ -12,27 +17,40 @@
         <div class="intro">
             <h1 class="title">Nest Evac</h1>
 
-            <div class="instructions">
+            <div class="instructions" id="instructions">
                 <p>Get the people out of there!</p>
-                <p>Select a unit and press <span class="keycode">Q</span> to evacuate it and get points! Keep in mind, that it will make the <span class="monster">monster</span> turn to the direction of the evacuee!</p>
-                <p>If you want to make the monster go in the reverse direction, select a unit and sacrifice it with <span class="keycode">W</span>, but keep in mind, that this will cost you some points.
+
+                <p>Select a unit and press <span class="keycode">Q</span> to evacuate it and get points! There are 3 types of evacuees giving a different amount! Keep in mind, that it will make the <span class="monster">monster</span> turn to the direction of the evacuation! If you want to make the monster reverse its direction, select a unit and sacrifice it with <span class="keycode">W</span>, but keep in mind, that this will remove some points and count as a loss!
+
                 <p>&nbsp</p>
-                <p>Every time the monster eats a captive, you lose some points! The game is lost when you lose 10 units.</p>
+
+                <p>Every time the monster eats a captive, you also lose some points! The game is lost when you lose 10 units. You win when you evacuate 25!</p>
+
                 <p>&nbsp</p>
 
                 <p>Press <span class="keycode">R</span> to restart!</p>
             </div>
-
 
             <button id="startbutton">Start</button>
         </div>
 
         <div class="container hidden" id="container">
             <main id="game" class="game"></main>
+
             <aside class="hud">
+                <div id="game-results" class="game-results undisplayed">
+                    <div class="restart-hint">
+                        <p id="game-outcome">Game won!</p>
+                        <p class="restart-hint">Press "R" to restart!</p>
+                    </div>
+                    <p>Time elapsed: <span id="game-results-time">0</span></p>
+                </div>
+
                 <p>Score: <span id="score">0</span></p>
                 <p>Losses remaining: <span id="losses">10</span></p>
-                <p id="evac-status">Evac ready!</p>
+                <p>Evacs remaining: <span id="evacs">20</span></p>
+
+                <p id="evac-status" class="evac-status">Evac ready!</p>
 
                 <div id="selected-cell" class="selected-cell hidden">
                     <p>

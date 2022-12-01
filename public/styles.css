@@ -34,6 +34,17 @@ p, h1 {
     visibility: hidden;
 }
 
+.game-results {
+    margin-bottom: 16px;
+    display: block;
+}
+
+.game-results.undisplayed,
+.evac-status.undisplayed,
+.instructions.undisplayed {
+    display: none;
+}
+
 .title {
     text-align: center;
     margin-bottom: 16px;
@@ -52,7 +63,6 @@ p, h1 {
 }
 
 .selected-cell {
-    margin-top: 32px;
     visibility: visible;
 }
 
@@ -110,4 +120,22 @@ p, h1 {
 .keycode {
     font-weight: bold;
     text-shadow: 2px 2px #ff0000;
+}
+
+.restart-hint {
+    font-style: italic;
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+
+.evac-status {
+    display: block;
+    margin: 16px 0;
+    color: #cccccc;
+    text-shadow: 2px 2px #e3e3e3;
+}
+
+.evac-status.ready {
+    font-weight: bold;
+    color: green;
 }

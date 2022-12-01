@@ -1,4 +1,5 @@
-import { getState, resetState } from "./state";
+import { getState } from './state';
+import { restartGame } from './utils';
 
 const BUTTON = document.getElementById('startbutton');
 
@@ -10,7 +11,7 @@ export function setupButtonListener(game) {
       BUTTON.innerText = 'Restart';
       document.getElementById('container').style.visibility = 'visible';
     } else {
-      resetState(game);
+      restartGame(game)
     }
   });
 }

@@ -17,6 +17,7 @@ export const KEY_WALL = 'W';
 
 export const EVAC_COOLDOWN_MS = 1500;
 export const LOSSES_MAX = 10;
+export const EVACS_MIN = 25;
 
 export const CELLS = {
   [KEY_FEMALE]: {

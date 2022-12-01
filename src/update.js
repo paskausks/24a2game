@@ -1,11 +1,18 @@
 import {
-    BOARD_SELECT_COLOR,
+    BOARD_SELECT_COLOR, EVACS_MIN, LOSSES_MAX,
 } from './constants';
 import { getState, setState } from './state';
-import { setCellColor } from './utils';
-import { setEvacLabel, showScore, setLossesLabel } from './hud';
+import { setCellColor, stopGame } from './utils';
+import {
+  setEvacLabel,
+  showScore,
+  setLossesLabel,
+  setEvacCountLabel,
+  showGameResults
+} from './hud';
 import { isEvacReady } from './evac';
 import { renderMonster } from './monster';
+import { onDotClicked } from './on-dot-clicked';
 
 function setStep(game) {
   setState(game, {
@@ -45,22 +52,44 @@ function updateScore(game) {
 }
 
 function updateEvacStatus(game) {
-  const lastEvac = getState(game)?.lastEvac;
-  setEvacLabel(isEvacReady(lastEvac));
-}
+  const state = getState(game)
 
-function updateLosses(game) {
-  const losses = getState(game)?.losses || 0;
+  if (!state) {
+    return;
+  }
+
+  const lastEvac = state.lastEvac;
+  const losses = state?.losses || 0;
+  const evacs = state?.evacs || 0;
+
+  setEvacLabel(isEvacReady(lastEvac));
   setLossesLabel(losses);
+  setEvacCountLabel(evacs);
 }
 
 function checkWinCondition(game) {
-  // TODO: Implement
+  const state = getState(game);
+
+  if (!state) {
+    return;
+  }
+
+  const losses = state.losses;
+  const evacs = state.evacs;
+  const gameLost = losses >= LOSSES_MAX;
+  const gameWon = evacs >= EVACS_MIN;
+
+  if (gameLost || gameWon) {
+    // just unselect the last selected unit
+    onDotClicked(game, null);
+    stopGame(game);
+    showGameResults(gameWon && !gameLost, state.created);
+  }
 }
 
 export function update(game) {
-  const paused = getState(game)?.paused || false;
-  if (paused) {
+  const stopped = getState(game)?.stopped || false;
+  if (stopped) {
     return;
   }
 
@@ -72,7 +101,6 @@ export function update(game) {
 
   updateScore(game);
   updateEvacStatus(game);
-  updateLosses(game)
 
   checkWinCondition(game);
 }
