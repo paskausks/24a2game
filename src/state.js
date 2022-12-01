@@ -6,14 +6,20 @@ export const STATE_KEY = 'NESTEVAC';
 
 export function resetState(game) {
   const halfBoard = Math.round(BOARD_DIMEN / 2);
+
   game[STATE_KEY] = {
+    stopped: false,
     score: 0,
+    losses: 0,
+    step: 0,
     created: new Date().getTime(),
-    ...getBoard(),
+    lastEvac: 0,
+    selectedCell: null,
     monster: {
       pos: Array(2).fill(halfBoard),
       vector: getRandomVector(),
     },
+    board: getBoard(),
   };
 }
 

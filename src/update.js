@@ -1,11 +1,17 @@
 import {
-  BOARD_DEFAULT_CELL_COLOR,
-  CELLS,
-  MONSTER_COLOR,
-  KEY_WALL
+    BOARD_SELECT_COLOR,
 } from './constants';
 import { getState, setState } from './state';
-import { getRandomVector, vectorSum } from './utils';
+import { setCellColor } from './utils';
+import { setEvacLabel, showScore, setLossesLabel } from './hud';
+import { isEvacReady } from './evac';
+import { renderMonster } from './monster';
+
+function setStep(game) {
+  setState(game, {
+    step: (getState(game).step || 0) + 1
+  })
+}
 
 function renderCaptives(game) {
   const state = getState(game);
@@ -17,38 +23,57 @@ function renderCaptives(game) {
         return;
       }
 
-      game.setDot(x, y, CELLS[cellKey].color || BOARD_DEFAULT_CELL_COLOR);
+      setCellColor(game, x, y);
     })
   });
 }
 
-function renderMonster(game) {
-  const state = getState(game)
-  const monster = state.monster;
-  let vector = monster.vector;
-  let pos = vectorSum(monster.pos, vector);
+function renderSelection(game) {
+  const selection = getState(game)?.selectedCell;
 
-  const newCell = state.board[pos[0]][pos[1]];
-
-  if (newCell !== null) {
-    pos = monster.pos;
-    vector = getRandomVector();
+  if (!selection) {
+    return;
   }
 
-  const time = ((new Date().getTime() - state.created) / 1000).toFixed(2);
-  game.setDot(pos[0], pos[1], MONSTER_COLOR);
-  game.setText('Time passed: ' + String(time) + 's');
+  const [x, y] = selection;
 
-  setState(game, {
-    monster: {
-      vector,
-      pos,
-    }
-  })
+  game.setDot(x, y, BOARD_SELECT_COLOR);
+}
+
+function updateScore(game) {
+  showScore(getState(game)?.score || 0);
+}
+
+function updateEvacStatus(game) {
+  const lastEvac = getState(game)?.lastEvac;
+  setEvacLabel(isEvacReady(lastEvac));
+}
+
+function updateLosses(game) {
+  const losses = getState(game)?.losses || 0;
+  setLossesLabel(losses);
+}
+
+function checkWinCondition(game) {
+  // TODO: Implement
 }
 
 export function update(game) {
+  const paused = getState(game)?.paused || false;
+  if (paused) {
+    return;
+  }
+
+  setStep(game);
+
   renderCaptives(game);
   renderMonster(game);
+  renderSelection(game);
+
+  updateScore(game);
+  updateEvacStatus(game);
+  updateLosses(game)
+
+  checkWinCondition(game);
 }
 

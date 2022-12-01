@@ -3,15 +3,52 @@
     <head>
         <title>Nest Evac</title>
         <meta charset="utf-8">
-        <meta name="description" content="24a2 game">
+        <meta name="description" content="24a2 game about evacuating people">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="styles.css">
     </head>
 
     <body>
-        <main id="container">
-            <h1>Nest Evac</h1>
-        </main>
+        <div class="intro">
+            <h1 class="title">Nest Evac</h1>
+
+            <div class="instructions">
+                <p>Get the people out of there!</p>
+                <p>Select a unit and press <span class="keycode">Q</span> to evacuate it and get points! Keep in mind, that it will make the <span class="monster">monster</span> turn to the direction of the evacuee!</p>
+                <p>If you want to make the monster go in the reverse direction, select a unit and sacrifice it with <span class="keycode">W</span>, but keep in mind, that this will cost you some points.
+                <p>&nbsp</p>
+                <p>Every time the monster eats a captive, you lose some points! The game is lost when you lose 10 units.</p>
+                <p>&nbsp</p>
+
+                <p>Press <span class="keycode">R</span> to restart!</p>
+            </div>
+
+
+            <button id="startbutton">Start</button>
+        </div>
+
+        <div class="container hidden" id="container">
+            <main id="game" class="game"></main>
+            <aside class="hud">
+                <p>Score: <span id="score">0</span></p>
+                <p>Losses remaining: <span id="losses">10</span></p>
+                <p id="evac-status">Evac ready!</p>
+
+                <div id="selected-cell" class="selected-cell hidden">
+                    <p>
+                        <span id="selected-cell-type" class="selected-cell-type"></span>
+                        <span id="selected-cell-label"></span>
+                    </p>
+
+                    <p class="selected-cell-data">Value: <span id="selected-cell-value"></span></p>
+                    <ul class="legend">
+                        <li><span class="action-key">Q</span> Evacuate</li>
+                        <li><span class="action-key">W</span> Sacrifice</li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+
         <script src="24a2.js"></script>
         <script defer src="main.js" type="module"></script>
     </body>

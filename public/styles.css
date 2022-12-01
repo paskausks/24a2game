@@ -14,8 +14,100 @@ main {
     font-family: sans-serif;
 }
 
-main {
+p, h1 {
+    padding: 0;
+    margin: 0;
+}
+
+.container,
+.intro {
+    margin: 16px 32px;
+}
+
+.container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
+}
+
+.container.hidden {
+    visibility: hidden;
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.game {
+    flex: 0 0 75%;
+    text-align: center;
+    margin-right: 16px;
+}
+
+.hud {
+    font-size: 18px;
+    line-height: 1.2;
+    flex: 0 1 auto;
+}
+
+.selected-cell {
+    margin-top: 32px;
+    visibility: visible;
+}
+
+.selected-cell.hidden {
+    visibility: hidden;
+}
+
+.selected-cell-type {
+    display: inline-block;
+    height: 14px;
+    width: 14px;
+    border-radius: 50%;
+    background-color: transparent;
+}
+
+.selected-cell-data {
+    margin-top: 16px;
+}
+
+.legend {
+    padding: 0;
+    margin: 32px 0 0;
+    list-style: none;
+}
+
+.legend > li {
+    margin-bottom: 8px;
+}
+
+.action-key {
+    width: 25px;
+    background-color: #ececec;
+    color: #575757;
+    display: inline-block;
+    font-weight: bold;
+    border: 2px solid #333333;
+    text-align: center;
+}
+
+.intro {
+    display: block;
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.instructions {
+    margin-bottom: 32px;
+}
+
+.monster {
+    font-weight: bold;
+    color: #4b0082;
+}
+
+.keycode {
+    font-weight: bold;
+    text-shadow: 2px 2px #ff0000;
 }
